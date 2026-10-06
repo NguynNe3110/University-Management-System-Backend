@@ -1,0 +1,9 @@
+/target/
+.env
+.idea/
+.vscode/
+*.iml
+*.log
+/docs/ba-extracted/
+/docs/
+AGENTS.md
