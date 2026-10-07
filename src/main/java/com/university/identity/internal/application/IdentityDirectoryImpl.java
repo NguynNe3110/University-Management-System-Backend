@@ -4,6 +4,7 @@ import com.university.identity.api.IdentityDirectory;
 import com.university.identity.api.UserProfileView;
 import com.university.identity.internal.domain.AppUser;
 import com.university.identity.internal.persistence.AppUserRepository;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,13 @@ public class IdentityDirectoryImpl implements IdentityDirectory {
 
     public IdentityDirectoryImpl(AppUserRepository appUserRepository) {
         this.appUserRepository = appUserRepository;
+    }
+
+    @Override
+    public Optional<String> userIdForStudent(String studentId) {
+        return appUserRepository
+                .findByStudentId(studentId)
+                .map(com.university.identity.internal.domain.AppUser::getId);
     }
 
     @Override
@@ -36,6 +44,12 @@ public class IdentityDirectoryImpl implements IdentityDirectory {
     }
 
     private UserProfileView mapToView(AppUser u) {
-        return new UserProfileView(u.getId(), u.getUsername(), u.getFullName(), u.getEmail(), u.getRoles(), u.getStatus());
+        return new UserProfileView(
+                u.getId(),
+                u.getUsername(),
+                u.getFullName(),
+                u.getEmail(),
+                u.getRoles(),
+                u.getStatus());
     }
 }

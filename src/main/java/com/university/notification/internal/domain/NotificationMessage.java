@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
 import java.time.Instant;
 
 @Entity
@@ -35,9 +36,19 @@ public class NotificationMessage {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
 
+    public void markRead() {
+        isRead = true;
+    }
+
     protected NotificationMessage() {}
 
-    public NotificationMessage(String id, String recipientId, String title, String content, String referenceModule, String referenceId) {
+    public NotificationMessage(
+            String id,
+            String recipientId,
+            String title,
+            String content,
+            String referenceModule,
+            String referenceId) {
         this.id = id;
         this.recipientId = recipientId;
         this.title = title;
@@ -48,12 +59,35 @@ public class NotificationMessage {
         this.createdAt = Instant.now();
     }
 
-    public String getId() { return id; }
-    public String getRecipientId() { return recipientId; }
-    public String getTitle() { return title; }
-    public String getContent() { return content; }
-    public String getReferenceModule() { return referenceModule; }
-    public String getReferenceId() { return referenceId; }
-    public boolean isRead() { return isRead; }
-    public Instant getCreatedAt() { return createdAt; }
+    public String getId() {
+        return id;
+    }
+
+    public String getRecipientId() {
+        return recipientId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getReferenceModule() {
+        return referenceModule;
+    }
+
+    public String getReferenceId() {
+        return referenceId;
+    }
+
+    public boolean isRead() {
+        return isRead;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
 }

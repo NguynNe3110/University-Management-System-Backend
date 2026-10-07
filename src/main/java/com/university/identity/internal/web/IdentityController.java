@@ -2,6 +2,7 @@ package com.university.identity.internal.web;
 
 import com.university.identity.api.IdentityDirectory;
 import com.university.identity.api.UserProfileView;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,13 +23,17 @@ public class IdentityController {
 
     @GetMapping("/users")
     public ResponseEntity<List<UserProfileView>> getAllUsers() {
+        com.university.shared.security.Access.require("ADMIN", "GLOBAL", "*");
         return ResponseEntity.ok(identityDirectory.findAllUsers());
     }
 
     @GetMapping("/users/{username}")
     public ResponseEntity<UserProfileView> getUserByUsername(@PathVariable String username) {
-        return identityDirectory.findByUsername(username)
-            .map(ResponseEntity::ok)
-            .orElseGet(() -> ResponseEntity.notFound().build());
+        if (!com.university.shared.security.Access.username().equals(username))
+            com.university.shared.security.Access.require("ADMIN", "GLOBAL", "*");
+        return identityDirectory
+                .findByUsername(username)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

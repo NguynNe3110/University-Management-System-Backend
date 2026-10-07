@@ -4,6 +4,7 @@ import com.university.student.api.StudentDirectory;
 import com.university.student.api.StudentProfileView;
 import com.university.student.internal.domain.StudentProfile;
 import com.university.student.internal.persistence.StudentProfileRepository;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,12 +38,13 @@ public class StudentDirectoryImpl implements StudentDirectory {
 
     private StudentProfileView mapToView(StudentProfile s) {
         return new StudentProfileView(
-            s.getId(),
-            s.getStudentCode(),
-            s.getFullName(),
-            s.getEmail(),
-            s.getProgramId(),
-            s.getStatus()
-        );
+                s.getId(),
+                s.getStudentCode(),
+                s.getFullName(),
+                s.getEmail(),
+                s.getProgramId(),
+                s.getStatus(),
+                s.getVersion(),
+                s.getAdministrativeClassId());
     }
 }

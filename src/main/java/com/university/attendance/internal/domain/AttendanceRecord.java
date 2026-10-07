@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
 import java.time.Instant;
 
 @Entity
@@ -29,9 +30,18 @@ public class AttendanceRecord {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
 
+    public void correctedStatus(String status) {
+        this.status = status;
+    }
+
     protected AttendanceRecord() {}
 
-    public AttendanceRecord(String id, String attendanceSessionId, String studentId, Instant checkInTime, String status) {
+    public AttendanceRecord(
+            String id,
+            String attendanceSessionId,
+            String studentId,
+            Instant checkInTime,
+            String status) {
         this.id = id;
         this.attendanceSessionId = attendanceSessionId;
         this.studentId = studentId;
@@ -40,10 +50,27 @@ public class AttendanceRecord {
         this.createdAt = Instant.now();
     }
 
-    public String getId() { return id; }
-    public String getAttendanceSessionId() { return attendanceSessionId; }
-    public String getStudentId() { return studentId; }
-    public Instant getCheckInTime() { return checkInTime; }
-    public String getStatus() { return status; }
-    public Instant getCreatedAt() { return createdAt; }
+    public String getId() {
+        return id;
+    }
+
+    public String getAttendanceSessionId() {
+        return attendanceSessionId;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public Instant getCheckInTime() {
+        return checkInTime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
 }

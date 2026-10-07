@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
 import java.time.Instant;
 
 @Entity
@@ -38,9 +39,40 @@ public class StudentGrade {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
 
+    @Column(name = "result_revision", nullable = false)
+    private long resultRevision;
+
+    public long getResultRevision() {
+        return resultRevision;
+    }
+
+    public void correction(double attendance, double midterm, double exam, double total) {
+        scores(attendance, midterm, exam, total);
+        resultRevision++;
+    }
+
+    public void scores(double attendance, double midterm, double exam, double total) {
+        attendanceScore = attendance;
+        midtermScore = midterm;
+        finalScore = exam;
+        totalScore = total;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     protected StudentGrade() {}
 
-    public StudentGrade(String id, String studentId, String teachingClassId, Double attendanceScore, Double midtermScore, Double finalScore, Double totalScore, String status) {
+    public StudentGrade(
+            String id,
+            String studentId,
+            String teachingClassId,
+            Double attendanceScore,
+            Double midtermScore,
+            Double finalScore,
+            Double totalScore,
+            String status) {
         this.id = id;
         this.studentId = studentId;
         this.teachingClassId = teachingClassId;
@@ -52,13 +84,39 @@ public class StudentGrade {
         this.createdAt = Instant.now();
     }
 
-    public String getId() { return id; }
-    public String getStudentId() { return studentId; }
-    public String getTeachingClassId() { return teachingClassId; }
-    public Double getAttendanceScore() { return attendanceScore; }
-    public Double getMidtermScore() { return midtermScore; }
-    public Double getFinalScore() { return finalScore; }
-    public Double getTotalScore() { return totalScore; }
-    public String getStatus() { return status; }
-    public Instant getCreatedAt() { return createdAt; }
+    public String getId() {
+        return id;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public String getTeachingClassId() {
+        return teachingClassId;
+    }
+
+    public Double getAttendanceScore() {
+        return attendanceScore;
+    }
+
+    public Double getMidtermScore() {
+        return midtermScore;
+    }
+
+    public Double getFinalScore() {
+        return finalScore;
+    }
+
+    public Double getTotalScore() {
+        return totalScore;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
 }

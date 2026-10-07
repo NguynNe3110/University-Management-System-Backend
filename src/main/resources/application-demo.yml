@@ -1,0 +1,3 @@
+# Explicit demo profile: every payment response remains labelled simulated.
+payments:
+  simulator-enabled: true

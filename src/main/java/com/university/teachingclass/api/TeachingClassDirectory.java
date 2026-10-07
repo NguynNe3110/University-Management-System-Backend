@@ -5,7 +5,12 @@ import java.util.Optional;
 
 public interface TeachingClassDirectory {
     Optional<TeachingClassView> findClassById(String id);
+
     List<TeachingClassView> findClassesBySemester(String semesterId);
+
     List<TeachingClassView> findAllClasses();
+
     int getCapacity(String classId);
+
+    TeachingClassView lockForRegistration(String classId);
 }

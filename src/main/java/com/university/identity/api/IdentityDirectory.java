@@ -5,6 +5,10 @@ import java.util.Optional;
 
 public interface IdentityDirectory {
     Optional<UserProfileView> findByUsername(String username);
+
     Optional<UserProfileView> findById(String id);
+
     List<UserProfileView> findAllUsers();
+
+    Optional<String> userIdForStudent(String studentId);
 }

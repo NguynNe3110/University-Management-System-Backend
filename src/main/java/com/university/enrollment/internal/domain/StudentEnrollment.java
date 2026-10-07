@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
 import java.time.Instant;
 
 @Entity
@@ -23,7 +24,7 @@ public class StudentEnrollment {
     @Column(name = "status", length = 32, nullable = false)
     private String status;
 
-    @Column(name = "enrolled_at", nullable = false, updatable = false)
+    @Column(name = "enrolled_at", nullable = false)
     private Instant enrolledAt = Instant.now();
 
     protected StudentEnrollment() {}
@@ -36,13 +37,49 @@ public class StudentEnrollment {
         this.enrolledAt = Instant.now();
     }
 
+    @Column(name = "window_id", length = 36)
+    private String windowId;
+
+    @Column(name = "cancelled_at")
+    private Instant cancelledAt;
+
+    public String getWindowId() {
+        return windowId;
+    }
+
+    public Instant getCancelledAt() {
+        return cancelledAt;
+    }
+
+    public void activate(String windowId) {
+        this.windowId = windowId;
+        this.status = "ENROLLED";
+        this.enrolledAt = Instant.now();
+        this.cancelledAt = null;
+    }
+
     public void cancel() {
+        this.cancelledAt = Instant.now();
         this.status = "CANCELLED";
     }
 
-    public String getId() { return id; }
-    public String getStudentId() { return studentId; }
-    public String getTeachingClassId() { return teachingClassId; }
-    public String getStatus() { return status; }
-    public Instant getEnrolledAt() { return enrolledAt; }
+    public String getId() {
+        return id;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public String getTeachingClassId() {
+        return teachingClassId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public Instant getEnrolledAt() {
+        return enrolledAt;
+    }
 }

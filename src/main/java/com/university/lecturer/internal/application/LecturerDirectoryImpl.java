@@ -4,6 +4,7 @@ import com.university.lecturer.api.LecturerDirectory;
 import com.university.lecturer.api.LecturerProfileView;
 import com.university.lecturer.internal.domain.LecturerProfile;
 import com.university.lecturer.internal.persistence.LecturerProfileRepository;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,12 +38,12 @@ public class LecturerDirectoryImpl implements LecturerDirectory {
 
     private LecturerProfileView mapToView(LecturerProfile l) {
         return new LecturerProfileView(
-            l.getId(),
-            l.getLecturerCode(),
-            l.getFullName(),
-            l.getEmail(),
-            l.getDepartmentId(),
-            l.getStatus()
-        );
+                l.getId(),
+                l.getLecturerCode(),
+                l.getFullName(),
+                l.getEmail(),
+                l.getDepartmentId(),
+                l.getStatus(),
+                l.getVersion());
     }
 }
